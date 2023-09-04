@@ -4337,15 +4337,4 @@
   //         }
   //     })
   // });
-
-//   Added SweetAlert2
-
-  // Add an event listener to the "text_generate" button
-  document.getElementById("text_generate").addEventListener("click", function() {
-    // Display the specified success notification using SweetAlert2
-    Swal.fire(
-      'Copied Successfully!',
-      'Text Copied to Clipboard!',
-      'success'
-    );
-  });
+  
