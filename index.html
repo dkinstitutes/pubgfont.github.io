@@ -302,6 +302,17 @@ window.dataLayer = window.dataLayer || [];
                 <div class="col-md-6 offset-md-3 mt-3">
                     <input style="text-align: center; background-color: #dee2e6;" type="text" class="form-control form-control-lg" id="text_output" placeholder="Name Preview" readonly />
                     <button id="text_generate" class="btn btn-lg btn-primary">Copy</button>
+                    <script>
+                        // Add an event listener to the "text_generate" button
+                        document.getElementsByClassName("btn-lg").addEventListener("click", function() {
+                          // Display the specified success notification using SweetAlert2
+                          Swal.fire(
+                            'Copied Successfully!',
+                            'Text Copied to Clipboard!',
+                            'success'
+                          );
+                        });
+                      </script>
                     <!-- Add this code wherever you want to display the install button -->
       <button id="installButton" class="download-button"><span>Install Now</span></button>
       <div style="text-align: center;">
@@ -1317,17 +1328,6 @@ window.dataLayer = window.dataLayer || [];
             }
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
-        <script>
-            // Add an event listener to the "text_generate" button
-            document.getElementById("text_generate").addEventListener("click", function() {
-              // Display the specified success notification using SweetAlert2
-              Swal.fire(
-                'Copied Successfully!',
-                'Text Copied to Clipboard!',
-                'success'
-              );
-            });
-          </script>
         <script async src="https://static.addtoany.com/menu/page.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
        <script src="script.js"></script>
