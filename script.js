@@ -4276,6 +4276,16 @@
     target.parent().addClass("active");
   });
   
+   // Add an event listener to the "text_generate" button
+   document.getElementById("text_generate").addEventListener("click", function() {
+    // Display the specified success notification using SweetAlert2
+    Swal.fire(
+      'Copied Successfully!',
+      'Text Copied to Clipboard!',
+      'success'
+    );
+  });
+
   // ADDED CUSTOM STYLISH NAME CODE
   const first = document.querySelector("#text_first");
   const input = document.querySelector("#text_input");
