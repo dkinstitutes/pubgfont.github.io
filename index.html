@@ -299,57 +299,60 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
-          let deferredPrompt;
-        
-          window.addEventListener('beforeinstallprompt', (event) => {
-            event.preventDefault();
-            deferredPrompt = event;
-        
-            // Show the install button if the app isn't already installed
-            if (!isAppInstalled()) {
-              document.getElementById('installButton').style.display = 'block';
-            } else {
-              showNotification('App Already Installed');
-            }
-          });
-        
-          // Handle install button click
-          document.getElementById('installButton').addEventListener('click', () => {
-            if (deferredPrompt) {
-              deferredPrompt.prompt();
-        
-              deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                  console.log('User accepted the install prompt');
-                } else {
-                  console.log('User dismissed the install prompt');
-                }
-        
-                // Reset the deferred prompt
-                deferredPrompt = null;
-              });
-            }
-          });
-        
-          // Check if the app is already installed
-          function isAppInstalled() {
-            if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-              return true; // The app is already installed
-            }
-        
-            // Check if the app is installed using older methods
-            if (window.matchMedia('(display-mode: fullscreen)').matches) {
-              return true; // The app is already installed
-            }
-        
-            return false; // The app is not installed
-          }
-        
-          // Show notification to the user
-          function showNotification(message) {
-            // Replace this with your actual notification implementation
-            alert(message);
-          }
+              let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+
+  // Show the install button if the app isn't already installed
+  if (!isAppInstalled()) {
+    document.getElementById('installButton').style.display = 'block';
+  } else {
+    showNotification('App Already Installed');
+  }
+});
+
+// Handle install button click
+document.getElementById('installButton').addEventListener('click', () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+
+    deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the install prompt');
+      } else {
+        console.log('User dismissed the install prompt');
+      }
+
+      // Reset the deferred prompt
+      deferredPrompt = null;
+    });
+  }
+});
+
+// Check if the app is already installed
+function isAppInstalled() {
+  if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+    return true; // The app is already installed
+  }
+
+  // Check if the app is installed using older methods
+  if (window.matchMedia('(display-mode: fullscreen)').matches) {
+    return true; // The app is already installed
+  }
+
+  return false; // The app is not installed
+}
+
+// Show notification to the user using SweetAlert 2
+function showNotification(message) {
+  Swal.fire({
+    title: message,
+    icon: 'info', // You can change the icon as needed
+    confirmButtonText: 'OK',
+  });
+}
         </script>
                 </div>
             </div>
