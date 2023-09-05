@@ -1301,7 +1301,7 @@ window.dataLayer = window.dataLayer || [];
                 });
             }
             
-                   // Function to show SweetAlert2 success notification
+        // Function to show SweetAlert2 success notification
         function showSuccessNotification() {
             Swal.fire(
                 'Copied Successfully!',
@@ -1332,6 +1332,17 @@ window.dataLayer = window.dataLayer || [];
                 var buttonId = button.getAttribute("data-id");
 
                 // Here, you can perform any specific action for each button if needed
+
+                // Show success notification
+                showSuccessNotification();
+            });
+        });
+
+        // Add event listener to all buttons except the "loadmore" button
+        var allButtons = document.querySelectorAll("button:not(.loadmore)");
+        allButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // Here, you can perform the action for all buttons except the "loadmore" button
 
                 // Show success notification
                 showSuccessNotification();
