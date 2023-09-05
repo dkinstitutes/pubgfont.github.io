@@ -1300,27 +1300,9 @@ window.dataLayer = window.dataLayer || [];
                     });
                 });
             }
-
-             // Add an event listener to the "text_generate" button
-  document.getElementById("text_generate").addEventListener("click", function() {
-    // Get the text from the input field
-    var textToCopy = document.getElementById("text_output").value;
-
-    // Check if the input field is not empty
-    if (textToCopy.trim() !== "") {
-      // Copy text to clipboard (your existing code to copy text goes here)
-
-      // After copying, display the SweetAlert2 success notification
-      Swal.fire(
-        'Copied Successfully!',
-        'Text Copied to Clipboard!',
-        'success'
-      );
-    }
-  });
-
-          // Function to show the SweetAlert2 success notification
-          function showSuccessNotification() {
+            
+                   // Function to show SweetAlert2 success notification
+        function showSuccessNotification() {
             Swal.fire(
                 'Copied Successfully!',
                 'Text Copied to Clipboard!',
@@ -1328,22 +1310,52 @@ window.dataLayer = window.dataLayer || [];
             );
         }
 
-        // Add an event listener to the button with class ".input-group-text"
-        document.querySelector(".input-group-text").addEventListener("click", function () {
+        // Add an event listener to the "text_generate" button
+        document.getElementById("text_generate").addEventListener("click", function () {
             // Get the text from the input field
             var textToCopy = document.getElementById("text_output").value;
 
             // Check if the input field is not empty
             if (textToCopy.trim() !== "") {
                 // Copy text to clipboard (your existing code to copy text goes here)
-                // For simplicity, we'll just log the copied text to the console
-                console.log("Copied text: " + textToCopy);
 
-                // Call the function to show the SweetAlert2 success notification
+                // Show success notification
                 showSuccessNotification();
             }
         });
 
+        // Add event listeners to buttons with class "input-group-text"
+        var inputGroupTextButtons = document.querySelectorAll(".input-group-text");
+        inputGroupTextButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                // You can identify the button by its data-id attribute
+                var buttonId = button.getAttribute("data-id");
+
+                // Here, you can perform any specific action for each button if needed
+
+                // Show success notification
+                showSuccessNotification();
+            });
+        });
+// EXISTING CODE START
+//              // Add an event listener to the "text_generate" button
+//   document.getElementById("text_generate").addEventListener("click", function() {
+//     // Get the text from the input field
+//     var textToCopy = document.getElementById("text_output").value;
+
+//     // Check if the input field is not empty
+//     if (textToCopy.trim() !== "") {
+//       // Copy text to clipboard (your existing code to copy text goes here)
+
+//       // After copying, display the SweetAlert2 success notification
+//       Swal.fire(
+//         'Copied Successfully!',
+//         'Text Copied to Clipboard!',
+//         'success'
+//       );
+//     }
+//   });
+// EXISTING CODE END
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
         <script async src="https://static.addtoany.com/menu/page.js"></script>
