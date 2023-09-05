@@ -1301,8 +1301,8 @@ window.dataLayer = window.dataLayer || [];
                 });
             }
             
-         // Function to show SweetAlert2 success notification
-         function showSuccessNotification() {
+        // Function to show SweetAlert2 success notification
+        function showSuccessNotification() {
             Swal.fire(
                 'Copied Successfully!',
                 'Text Copied to Clipboard!',
@@ -1324,18 +1324,25 @@ window.dataLayer = window.dataLayer || [];
             }
         });
 
-        // Add event listener to all buttons with class "copybutton"
-        var copyButtons = document.querySelectorAll(".copybutton");
-        copyButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
-                // You can identify the button by its data-id attribute
-                var buttonId = button.getAttribute("data-id");
+        // Event delegation for buttons with class "copybutton"
+        document.addEventListener("click", function (event) {
+            if (event.target.classList.contains("copybutton")) {
+                // You can identify the button by its data-clipboard-target attribute
+                var targetId = event.target.getAttribute("data-clipboard-target");
 
                 // Here, you can perform any specific action for each button if needed
 
                 // Show success notification
                 showSuccessNotification();
-            });
+            }
+        });
+
+        // Add an event listener for the "loadmore" button
+        document.getElementById("loadmore").addEventListener("click", function () {
+            // Here, you can perform the action for the "loadmore" button
+
+            // Show success notification
+            showSuccessNotification();
         });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
