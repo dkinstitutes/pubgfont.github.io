@@ -299,14 +299,15 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
-              let deferredPrompt;
+            let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
   deferredPrompt = event;
 
-  // Show the install button if the app isn't already installed
+  // Check if the app is already installed
   if (!isAppInstalled()) {
+    // Show the install button only if the app is not installed
     document.getElementById('installButton').style.display = 'block';
   } else {
     showNotification('App Already Installed');
@@ -321,6 +322,9 @@ document.getElementById('installButton').addEventListener('click', () => {
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the install prompt');
+
+        // Hide the install button when the app is successfully installed
+        document.getElementById('installButton').style.display = 'none';
       } else {
         console.log('User dismissed the install prompt');
       }
@@ -353,6 +357,7 @@ function showNotification(message) {
     confirmButtonText: 'OK',
   });
 }
+
         </script>
                 </div>
             </div>
