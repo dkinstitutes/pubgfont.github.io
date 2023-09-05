@@ -299,7 +299,7 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
-            let deferredPrompt;
+  let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
   event.preventDefault();
@@ -309,8 +309,6 @@ window.addEventListener('beforeinstallprompt', (event) => {
   if (!isAppInstalled()) {
     // Show the install button only if the app is not installed
     document.getElementById('installButton').style.display = 'block';
-  } else {
-    showNotification('App Already Installed');
   }
 });
 
@@ -348,16 +346,6 @@ function isAppInstalled() {
 
   return false; // The app is not installed
 }
-
-// // Show notification to the user using SweetAlert 2
-// function showNotification(message) {
-//   Swal.fire({
-//     title: message,
-//     icon: 'info', // You can change the icon as needed
-//     confirmButtonText: 'OK',
-//   });
-// }
-
         </script>
                 </div>
             </div>
