@@ -1319,6 +1319,31 @@ window.dataLayer = window.dataLayer || [];
     }
   });
 
+          // Function to show the SweetAlert2 success notification
+          function showSuccessNotification() {
+            Swal.fire(
+                'Copied Successfully!',
+                'Text Copied to Clipboard!',
+                'success'
+            );
+        }
+
+        // Add an event listener to the button with class ".input-group-text"
+        document.querySelector(".input-group-text").addEventListener("click", function () {
+            // Get the text from the input field
+            var textToCopy = document.getElementById("text_output").value;
+
+            // Check if the input field is not empty
+            if (textToCopy.trim() !== "") {
+                // Copy text to clipboard (your existing code to copy text goes here)
+                // For simplicity, we'll just log the copied text to the console
+                console.log("Copied text: " + textToCopy);
+
+                // Call the function to show the SweetAlert2 success notification
+                showSuccessNotification();
+            }
+        });
+
         </script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
         <script async src="https://static.addtoany.com/menu/page.js"></script>
