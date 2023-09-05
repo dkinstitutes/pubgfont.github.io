@@ -306,6 +306,9 @@ window.addEventListener('load', () => {
     if (!isAppInstalled()) {
         // Show the install button only if the app is not installed
         document.getElementById('installButton').style.display = 'block';
+    } else {
+        // Hide the install button if the app is already installed
+        document.getElementById('installButton').style.display = 'none';
     }
 });
 
@@ -322,7 +325,6 @@ document.getElementById('installButton').addEventListener('click', () => {
         deferredPrompt.userChoice.then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
                 console.log('User accepted the install prompt');
-                setAppInstalledCookie(true); // Set a cookie indicating the app is installed
 
                 // Hide the install button when the app is successfully installed
                 document.getElementById('installButton').style.display = 'none';
@@ -336,26 +338,18 @@ document.getElementById('installButton').addEventListener('click', () => {
     }
 });
 
-// Check if the app is already installed using a cookie
+// Check if the app is already installed
 function isAppInstalled() {
-    return getCookie('appInstalled') === 'true';
-}
-
-// Set a cookie to indicate the app is installed
-function setAppInstalledCookie(value) {
-    document.cookie = 'appInstalled=' + value + '; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/';
-}
-
-// Helper function to get a cookie by name
-function getCookie(name) {
-    const cookies = document.cookie.split('; ');
-    for (const cookie of cookies) {
-        const [cookieName, cookieValue] = cookie.split('=');
-        if (cookieName === name) {
-            return cookieValue;
-        }
+    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        return true; // The app is already installed
     }
-    return null;
+
+    // Check if the app is installed using older methods
+    if (window.matchMedia('(display-mode: fullscreen)').matches) {
+        return true; // The app is already installed
+    }
+
+    return false; // The app is not installed
 }
         </script>
                 </div>

@@ -37,7 +37,8 @@ margin-right: 10px;
   border-radius: 30px;
   }
   .download-button {
-    display: inline-block;
+    /* display: inline-block; */
+    display: none;
     padding: 10px 20px;
     background-image: linear-gradient( 135deg, #0f9 0%, #60f 100%);
     color: #fff;
