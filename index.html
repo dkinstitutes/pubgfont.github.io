@@ -299,22 +299,17 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
-let deferredPrompt;
-
-// Check if the app is already installed when the page loads
-window.addEventListener('load', () => {
-    if (!isAppInstalled()) {
-        // Show the install button only if the app is not installed
-        document.getElementById('installButton').style.display = 'block';
-    } else {
-        // Hide the install button if the app is already installed
-        document.getElementById('installButton').style.display = 'none';
-    }
-});
+          let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
     deferredPrompt = event;
+
+    // Check if the app is already installed
+    if (!isAppInstalled()) {
+        // Show the install button only if the app is not installed
+        document.getElementById('installButton').style.display = 'block';
+    }
 });
 
 // Handle install button click
