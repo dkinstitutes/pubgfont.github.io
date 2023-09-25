@@ -304,25 +304,53 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
-   // Check if the browser supports the custom install prompt
-   if (window.PWAPrompt) {
-    const pwaPrompt = new PWAPrompt();
+          let deferredPrompt;
 
-    // Configure the install prompt
-    pwaPrompt.setup({
-      title: 'Install PUBGFONT.COM',
-      action: () => {
-        // You can perform additional actions here, such as tracking the installation.
-        console.log('User clicked install.');
-      },
-    });
+window.addEventListener('beforeinstallprompt', (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
 
-    // Show the custom install prompt when your button is clicked
-    const installButton = document.getElementById('installButton');
-    installButton.addEventListener('click', () => {
-      pwaPrompt.prompt();
-    });
-  }
+    // Check if the app is already installed
+    if (!isAppInstalled()) {
+        // Show the install button only if the app is not installed
+        document.getElementById('installButton').style.display = 'block';
+    }
+});
+
+// Handle install button click
+document.getElementById('installButton').addEventListener('click', () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+
+                // Hide the install button when the app is successfully installed
+                document.getElementById('installButton').style.display = 'none';
+            } else {
+                console.log('User dismissed the install prompt');
+            }
+
+            // Reset the deferred prompt
+            deferredPrompt = null;
+        });
+    }
+});
+
+// Check if the app is already installed
+function isAppInstalled() {
+    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        return true; // The app is already installed
+    }
+
+    // Check if the app is installed using older methods
+    if (window.matchMedia('(display-mode: fullscreen)').matches) {
+        return true; // The app is already installed
+    }
+
+    return false; // The app is not installed
+}
         </script>
                 </div>
             </div>
@@ -1314,7 +1342,6 @@ window.dataLayer = window.dataLayer || [];
             }
         });
         </script>
-        <script src="https://unpkg.com/pwa-install-prompt@1.0.0/dist/pwa-install-prompt.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
         <script async src="https://static.addtoany.com/menu/page.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
