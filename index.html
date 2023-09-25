@@ -303,55 +303,35 @@ window.dataLayer = window.dataLayer || [];
       <div style="text-align: center;">
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
-      <script>
-          let deferredPrompt;
+     
+    <script>
+        // Check if the app is already installed
+        if (!isAppInstalled()) {
+            document.getElementById('installButton').style.display = 'block';
+        }
 
-window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-
-    // Check if the app is already installed
-    if (!isAppInstalled()) {
-        // Show the install button only if the app is not installed
-        document.getElementById('installButton').style.display = 'block';
-    }
-});
-
-// Handle install button click
-document.getElementById('installButton').addEventListener('click', () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-
-                // Hide the install button when the app is successfully installed
-                document.getElementById('installButton').style.display = 'none';
+        // Handle the button click to instruct users
+        document.getElementById('installButton').addEventListener('click', () => {
+            if (isAppInstalled()) {
+                alert("The app is already installed on your home screen.");
             } else {
-                console.log('User dismissed the install prompt');
+                alert("To install this app on your home screen, open your browser's menu and look for 'Add to Home Screen' or a similar option.");
+            }
+        });
+
+        // Check if the app is already installed
+        function isAppInstalled() {
+            if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+                return true;
             }
 
-            // Reset the deferred prompt
-            deferredPrompt = null;
-        });
-    }
-});
+            if (window.matchMedia('(display-mode: fullscreen)').matches) {
+                return true;
+            }
 
-// Check if the app is already installed
-function isAppInstalled() {
-    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        return true; // The app is already installed
-    }
-
-    // Check if the app is installed using older methods
-    if (window.matchMedia('(display-mode: fullscreen)').matches) {
-        return true; // The app is already installed
-    }
-
-    return false; // The app is not installed
-}
-        </script>
+            return false;
+        }
+    </script>
                 </div>
             </div>
             <div class="row">
