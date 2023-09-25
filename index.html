@@ -304,42 +304,54 @@ window.dataLayer = window.dataLayer || [];
         <small class="text-muted">Installable only in updated chrome browsers.</small>
         </div> 
       <script>
- let deferredPrompt;
+          let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', (event) => {
     event.preventDefault();
     deferredPrompt = event;
 
-    const installButton = document.getElementById('installButton');
-    installButton.style.display = 'block';
-
-    installButton.addEventListener('click', () => {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted the install prompt');
-                    installButton.style.display = 'none'; // Hide the button
-                }
-            });
-        }
-    });
+    // Check if the app is already installed
+    if (!isAppInstalled()) {
+        // Show the install button only if the app is not installed
+        document.getElementById('installButton').style.display = 'block';
+    }
 });
 
-        </script>
-        <script>
-            if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                    navigator.serviceWorker.register('/sw.js').then((registration) => {
-                        console.log('Service Worker registered with scope:', registration.scope);
-                    }).catch((error) => {
-                        console.error('Service Worker registration failed:', error);
-                    });
-                });
+// Handle install button click
+document.getElementById('installButton').addEventListener('click', () => {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+
+                // Hide the install button when the app is successfully installed
+                document.getElementById('installButton').style.display = 'none';
+            } else {
+                console.log('User dismissed the install prompt');
             }
+
+            // Reset the deferred prompt
+            deferredPrompt = null;
+        });
+    }
+});
+
+// Check if the app is already installed
+function isAppInstalled() {
+    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        return true; // The app is already installed
+    }
+
+    // Check if the app is installed using older methods
+    if (window.matchMedia('(display-mode: fullscreen)').matches) {
+        return true; // The app is already installed
+    }
+
+    return false; // The app is not installed
+}
         </script>
-        
                 </div>
             </div>
             <div class="row">
