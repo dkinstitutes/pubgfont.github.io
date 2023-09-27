@@ -12,7 +12,6 @@
         />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="author" content="Dilawar Khan"/>
-        <link rel="manifest" href="manifest.json">
         <!-- FAVICON -->
        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -298,60 +297,6 @@ window.dataLayer = window.dataLayer || [];
                 <div class="col-md-6 offset-md-3 mt-3">
                     <input style="text-align: center; background-color: #dee2e6;" type="text" class="form-control form-control-lg" id="text_output" placeholder="Name Preview" readonly />
                     <button id="text_generate" class="btn btn-lg btn-primary">Copy</button>
-                    <!-- Add this code wherever you want to display the install button -->
-      <button id="installButton" class="download-button"><span>INSTALL PUBGFONT.COM</span></button>
-      <div style="text-align: center;">
-        <small class="text-muted">Installable only in updated chrome browsers.</small>
-        </div> 
-      <script>
-          let deferredPrompt;
-
-window.addEventListener('beforeinstallprompt', (event) => {
-    event.preventDefault();
-    deferredPrompt = event;
-
-    // Check if the app is already installed
-    if (!isAppInstalled()) {
-        // Show the install button only if the app is not installed
-        document.getElementById('installButton').style.display = 'block';
-    }
-});
-
-// Handle install button click
-document.getElementById('installButton').addEventListener('click', () => {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-
-        deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the install prompt');
-
-                // Hide the install button when the app is successfully installed
-                document.getElementById('installButton').style.display = 'none';
-            } else {
-                console.log('User dismissed the install prompt');
-            }
-
-            // Reset the deferred prompt
-            deferredPrompt = null;
-        });
-    }
-});
-
-// Check if the app is already installed
-function isAppInstalled() {
-    if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        return true; // The app is already installed
-    }
-
-    // Check if the app is installed using older methods
-    if (window.matchMedia('(display-mode: fullscreen)').matches) {
-        return true; // The app is already installed
-    }
-
-    return false; // The app is not installed
-}
-        </script>
                 </div>
             </div>
             <div class="row">
