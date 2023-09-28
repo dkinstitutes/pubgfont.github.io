@@ -83,11 +83,6 @@ margin-right: 10px;
       box-shadow: 0 0 0 rgba(0, 123, 255, 0.4);
     }
   } 
-   /* Style for the container */
-   .container {
-    text-align: center;
-    padding: 50px;
-}
 
 /* Style for the icons */
 .icon {
